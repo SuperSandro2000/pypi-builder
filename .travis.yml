@@ -1,0 +1,20 @@
+os: linux
+arch:
+  - amd64
+  - arm64
+dist: bionic
+language: python
+cache: pip
+group: travis_latest
+
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+
+env:
+  - PIP=Red-DiscordBot
+
+script:
+  - pip3 install twine wheel
+  - make
