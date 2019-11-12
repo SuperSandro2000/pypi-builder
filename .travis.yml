@@ -19,3 +19,8 @@ env:
 script:
   - pip3 install twine wheel
   - make
+
+jobs:
+  exclude:
+    - python: "3.6"
+      env: PIP=Zeronet
