@@ -14,7 +14,7 @@ build:
 
 .PHONY: upload
 upload:
-   (cd $(DIR); GLOBIGNORE="*none-any.whl*" twine upload --repository-url $(REPO) --skip-existing *)
+   find packages/ ! -name *none-any* -type f | xargs twine upload --repository-url $(REPO) --skip-existing
 
 .PHONY: all
 all: build upload
