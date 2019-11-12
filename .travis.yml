@@ -14,6 +14,7 @@ python:
 
 env:
   - PIP=Red-DiscordBot
+  - PIP=Zeronet
 
 script:
   - pip3 install twine wheel
