@@ -5,7 +5,7 @@ SHELL := /bin/bash
 
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 DIR ?= packages
-PIP ?= Red-DiscordBot Zeronet
+PIP ?= Red-DiscordBot https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
 REPO := https://pypi.supersandro.de/
 
 .PHONY: build
