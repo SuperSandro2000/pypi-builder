@@ -26,6 +26,10 @@ script:
 jobs:
   include:
     - arch: amd64
+      python: "3.6"
+      env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
+      before_script: sudo apt install -qy libffi-dev
+    - arch: amd64
       python: "3.7"
       env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
       before_script: sudo apt install -qy libffi-dev
@@ -33,6 +37,10 @@ jobs:
       python: "3.8"
       env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
       before_script: sudo apt install -qy libffi-dev
+    - arch: arm64
+      python: "3.6"
+      env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
+      before_script: sudo apt install -qy libffi-dev pkg-config
     - arch: arm64
       python: "3.7"
       env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
