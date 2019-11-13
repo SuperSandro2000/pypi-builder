@@ -14,7 +14,6 @@ python:
 
 env:
   - PIP=Red-DiscordBot
-  - PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
 
 install:
   - sudo apt update -q
@@ -41,3 +40,28 @@ jobs:
       python: "3.8"
       env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
       before_script: sudo apt install -qy libffi-dev
+
+    - arch: amd64
+      python: "3.6"
+      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
+      before_script: sudo apt install -qy libpq-dev
+    - arch: amd64
+      python: "3.7"
+      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
+      before_script: sudo apt install -qy libpq-dev
+    - arch: amd64
+      python: "3.8"
+      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
+      before_script: sudo apt install -qy libpq-dev
+    - arch: arm64
+      python: "3.6"
+      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
+      before_script: sudo apt install -qy libpq-dev
+    - arch: arm64
+      python: "3.7"
+      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
+      before_script: sudo apt install -qy libpq-dev
+    - arch: arm64
+      python: "3.8"
+      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
+      before_script: sudo apt install -qy libpq-dev
