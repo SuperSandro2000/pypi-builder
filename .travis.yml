@@ -18,7 +18,7 @@ env:
 install:
   - sudo apt update -q
   - sudo apt install -qy python3-wheel
-  - pip3 install twine
+  - pip3 install j2cli twine
 
 script:
   - make all
