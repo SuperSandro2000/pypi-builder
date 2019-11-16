@@ -21,7 +21,8 @@ install:
   - pip3 install twine
 
 script:
-  - make
+  - make all
+  - make all-docker-native
 
 jobs:
   include:
