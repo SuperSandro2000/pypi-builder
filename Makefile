@@ -3,6 +3,10 @@
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
+# `uname -m` does not use arm64 but instead aarch64. We need to transalte this.
+NATIVE_ARCH_x86_64 ?= amd64
+NATIVE_ARCH_aarch64 ?= arm64
+NATIVE_ARCH_armv7l ?= armhf
 # Official Docker Images do not use arm64 but instead arm64v8. We need to transalte this.
 DOCKER_ARCH_amd64 ?= amd64
 DOCKER_ARCH_arm64 ?= arm64v8
@@ -18,7 +22,7 @@ SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
   (export arch=$(DOCKER_ARCH_$*) && j2 $< -o $@)
 
 .PHONY: build-docker-%
-build-docker-%: amd64.Dockerfile arm64.Dockerfile
+build-docker-%: %.Dockerfile
   $(SUDO) docker build . -f $< -t pypi-builder-$*
   $(SUDO) docker run -it -v $$PWD/packages:/data/packages pypi-builder-$* make build
 
@@ -33,7 +37,7 @@ all-docker-amd64: build-docker-amd64 upload
 all-docker-arm64: build-docker-arm64 upload
 
 .PHONY: all-docker-native
-all-docker-native: build-docker-$(ARCH) upload
+all-docker-native: build-docker-$(NATIVE_ARCH_$(ARCH)) upload
 
 .PHONY: all-docker
 all-docker: build-docker upload
