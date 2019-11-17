@@ -25,7 +25,7 @@ SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 .PHONY: build-docker-%
 build-docker-%: %.Dockerfile
   $(SUDO) docker build . -f $< -t pypi-builder-$*
-  $(SUDO) docker run -i -v $$PWD/packages:/data/packages pypi-builder-$* make build
+  $(SUDO) docker run -i -v $$PWD/packages:/data/packages pypi-builder-$* make build PIP='$(PIP)'
 
 .PHONY: build-docker
 build-docker: build-docker-amd64 build-docker-arm64
