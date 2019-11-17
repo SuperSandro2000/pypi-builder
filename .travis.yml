@@ -45,6 +45,7 @@ jobs:
 
     # Kibitzr Alpine
     - arch: amd64
+      language: shell
       env: PIP=Kibitzr
       script: make all-docker-native
     - arch: arm64
@@ -67,8 +68,10 @@ jobs:
 
     # ZeroNet Alpine
     - arch: amd64
+      language: shell
       env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
       script: make all-docker-native
     - arch: arm64
+      language: shell
       env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
       script: make all-docker-native
