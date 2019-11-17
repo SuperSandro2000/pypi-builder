@@ -21,7 +21,7 @@ REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 
 %.Dockerfile: Dockerfile.j2
-  (export arch=$(DOCKER_ARCH_$*) DIST=$(DIST) && j2 $< -o $@)
+  (export arch=$(DOCKER_ARCH_$*) DIST=$(DIST) PIP="$(PIP)" && j2 $< -o $@)
 
 .PHONY: build-docker-%
 build-docker-%: %.Dockerfile
