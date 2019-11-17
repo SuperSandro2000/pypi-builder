@@ -53,7 +53,7 @@ upload:
   @find packages/ ! -name *none-any* -type f -print0 | \
     while IFS= read -r -d '' line; do \
       twine upload --repository-url $(REPO) --skip-existing $$line; \
-      rm $$line; \
+      $(if ${CI},sudo,) rm $$line; \
     done
 
 .PHONY: all
@@ -61,4 +61,4 @@ all: build upload
 
 .PHONY: clean
 clean:
-  rm -f packages/*
+  $(if ${CI},sudo,) rm -f packages/*
