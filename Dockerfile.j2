@@ -10,7 +10,7 @@ RUN apk add --no-progress postgresql-dev
 {%- endif -%}
 
 {% if "Kibitzr" in PIP %}
-{%- set ffi = 'True' -%}
+{% set ffi = 'True' %}
 # depencies needed by cryptography
 RUN apk add --no-progress openssl-dev
 
@@ -22,7 +22,7 @@ RUN apk add --no-progress libxml2-dev libxslt-dev
 {%- set ffi = 'True' -%}
 {%- endif -%}
 
-{%- if ffi is defined -%}
+{% if ffi is defined %}
 # depencies needed by cffi
 RUN apk add --no-progress libffi-dev
 {%- endif -%}
