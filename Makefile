@@ -13,6 +13,7 @@ DOCKER_ARCH_arm64 ?= arm64v8
 DOCKER_ARCH_armhf ?= arm32v7
 
 ARCH ?= $(shell uname -m)
+CI ?=
 DIR ?= packages
 DIST ?= alpine # tested with alpine and buster
 PIP ?= -r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt Kibitzr Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
@@ -20,12 +21,12 @@ REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 
 %.Dockerfile: Dockerfile.j2
-  (export arch=$(DOCKER_ARCH_$*) dist=$(DIST) && j2 $< -o $@)
+  (export arch=$(DOCKER_ARCH_$*) DIST=$(DIST) && j2 $< -o $@)
 
 .PHONY: build-docker-%
 build-docker-%: %.Dockerfile
   $(SUDO) docker build . -f $< -t pypi-builder-$*
-  $(SUDO) docker run -i -v $$PWD/packages:/data/packages pypi-builder-$* make build PIP='$(PIP)'
+  $(SUDO) docker run -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder-$* make build PIP='$(PIP)'
 
 .PHONY: build-docker
 build-docker: build-docker-amd64 build-docker-arm64
@@ -49,7 +50,15 @@ build:
 
 .PHONY: upload
 upload:
-   find packages/ ! -name *none-any* -type f | xargs twine upload --repository-url $(REPO) --skip-existing
+  @find packages/ ! -name *none-any* -type f -print0 | \
+    while IFS= read -r -d '' line; do \
+      twine upload --repository-url $(REPO) --skip-existing $$line; \
+      rm $$line; \
+    done
 
 .PHONY: all
 all: build upload
+
+.PHONY: clean
+clean:
+  rm -f packages/*

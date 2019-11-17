@@ -1,6 +1,32 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}python:3-{% if dist is defined %}{{dist}}{% else %}buster{% endif %}
+FROM {% if arch is defined %}{{arch}}/{% endif %}python:3-{% if DIST is defined %}{{DIST}}{% else %}buster{% endif %}
 
-{% if dist == "alpine" %}RUN apk add bash make{% endif %}
+{% if DIST == "alpine" %}
+# script and common build dependencies
+RUN apk add --no-progress bash g++ make
+
+{% if "healthchecks" in PIP %}
+# depencies needed by psycopg2
+RUN apk add --no-progress postgresql-dev
+{%- endif -%}
+
+{% if "Kibitzr" in PIP %}
+{%- set ffi = 'True' -%}
+# depencies needed by cryptography
+RUN apk add --no-progress openssl-dev
+
+# depencies needed by lxml
+RUN apk add --no-progress libxml2-dev libxslt-dev
+{%- endif -%}
+
+{%- if "ZeroNet" in PIP -%}
+{%- set ffi = 'True' -%}
+{%- endif -%}
+
+{%- if ffi is defined -%}
+# depencies needed by cffi
+RUN apk add --no-progress libffi-dev
+{%- endif -%}
+{% endif %}
 
 RUN pip3 install twine wheel
 
