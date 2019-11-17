@@ -14,12 +14,13 @@ DOCKER_ARCH_armhf ?= arm32v7
 
 ARCH ?= $(shell uname -m)
 DIR ?= packages
+DIST ?= alpine # tested with alpine and buster
 PIP ?= -r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt Kibitzr Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
-REPO := https://pypi.supersandro.de/
+REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 
 %.Dockerfile: Dockerfile.j2
-  (export arch=$(DOCKER_ARCH_$*) && j2 $< -o $@)
+  (export arch=$(DOCKER_ARCH_$*) dist=$(DIST) && j2 $< -o $@)
 
 .PHONY: build-docker-%
 build-docker-%: %.Dockerfile
