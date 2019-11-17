@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := $(if ${CI},all,amd64-build-docker)
+.DEFAULT_GOAL := $(if ${CI},all,build-docker-amd64)
 .RECIPEPREFIX +=
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
