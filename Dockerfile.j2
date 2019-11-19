@@ -7,7 +7,7 @@ RUN apk add --no-progress bash g++ make
 {%- if "healthchecks" in PIP %}
 # depencies needed by psycopg2
 RUN apk add --no-progress postgresql-dev
-{%- endif -}
+{%- endif %}
 
 {%- if "Kibitzr" in PIP %}
 {%- set ffi = 'True' %}
