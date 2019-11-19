@@ -29,14 +29,20 @@ build-docker-%: %.Dockerfile
   $(SUDO) docker run -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder-$* make build PIP='$(PIP)'
 
 .PHONY: build-docker
-build-docker: build-docker-amd64 build-docker-arm64
-  docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+build-docker: build-docker-amd64 build-docker-arm64 build-docker-armhf
+
+.PHONY: cross
+cross:
+  $(SUDO) docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 .PHONY: all-docker-amd64
 all-docker-amd64: build-docker-amd64 upload
 
 .PHONY: all-docker-arm64
 all-docker-arm64: build-docker-arm64 upload
+
+.PHONY: all-docker-armhf
+all-docker-armhf: cross build-docker-armhf upload
 
 .PHONY: all-docker-native
 all-docker-native: build-docker-$(NATIVE_ARCH_$(ARCH)) upload
