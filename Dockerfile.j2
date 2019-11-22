@@ -10,9 +10,8 @@ RUN apk add --no-progress postgresql-dev
 {%- endif %}
 
 {%- if "Kibitzr" in PIP %}
+{%- set crypt = 'True' %}
 {%- set ffi = 'True' %}
-# depencies needed by cryptography
-RUN apk add --no-progress openssl-dev
 
 # depencies needed by lxml
 RUN apk add --no-progress libxml2-dev libxslt-dev
@@ -20,6 +19,12 @@ RUN apk add --no-progress libxml2-dev libxslt-dev
 
 {%- if "ZeroNet" in PIP %}
 {%- set ffi = 'True' %}
+{%- set crypt = 'True' %}
+{%- endif %}
+
+{%- if crypt is defined %}
+# depencies needed by cryptography
+RUN apk add --no-progress openssl-dev
 {%- endif %}
 
 {%- if ffi is defined %}
