@@ -15,8 +15,8 @@ DOCKER_ARCH_armhf ?= arm32v7
 ARCH ?= $(shell uname -m)
 CI ?=
 DIR ?= packages
-DIST ?= alpine # tested with alpine and buster
-PIP ?= -r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt Kibitzr Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
+DIST ?= alpine buster # tested with alpine and buster
+PIP ?= ibitzr Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
 REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 

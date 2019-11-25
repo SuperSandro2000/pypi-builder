@@ -25,24 +25,6 @@ script:
 
 jobs:
   include:
-    # Healthchecks
-    - arch: amd64
-      python: "3.7"
-      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
-      before_script: sudo apt install -qy libpq-dev
-    - arch: amd64
-      python: "3.8"
-      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
-      before_script: sudo apt install -qy libpq-dev
-    - arch: arm64
-      python: "3.7"
-      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
-      before_script: sudo apt install -qy libpq-dev
-    - arch: arm64
-      python: "3.8"
-      env: PIP="-r https://github.com/healthchecks/healthchecks/raw/master/requirements.txt"
-      before_script: sudo apt install -qy libpq-dev
-
     # Kibitzr Alpine
     - arch: amd64
       env: PIP=Kibitzr

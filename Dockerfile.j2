@@ -4,11 +4,6 @@ FROM {% if arch is defined %}{{arch}}/{% endif %}python:3-{% if DIST is defined 
 # script and common build dependencies
 RUN apk add --no-progress bash g++ make
 
-{%- if "healthchecks" in PIP %}
-# depencies needed by psycopg2
-RUN apk add --no-progress postgresql-dev
-{%- endif %}
-
 {%- if "Kibitzr" in PIP %}
 {%- set crypt = 'True' %}
 {%- set ffi = 'True' %}
@@ -18,8 +13,8 @@ RUN apk add --no-progress libxml2-dev libxslt-dev
 {%- endif %}
 
 {%- if "ZeroNet" in PIP %}
-{%- set ffi = 'True' %}
 {%- set crypt = 'True' %}
+{%- set ffi = 'True' %}
 {%- endif %}
 
 {%- if crypt is defined %}
