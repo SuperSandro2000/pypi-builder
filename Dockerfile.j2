@@ -12,6 +12,12 @@ RUN apk add --no-progress bash g++ make
 RUN apk add --no-progress libxml2-dev libxslt-dev
 {%- endif %}
 
+{%- if "psycopg2-binary" in PIP %}
+{%- set ffi = 'True' %}
+
+RUN apk add --no-progress postgresql-dev
+{%- endif %}
+
 {%- if "ZeroNet" in PIP %}
 {%- set crypt = 'True' %}
 {%- set ffi = 'True' %}

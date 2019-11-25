@@ -16,7 +16,7 @@ ARCH ?= $(shell uname -m)
 CI ?=
 DIR ?= packages
 DIST ?= alpine buster # tested with alpine and buster
-PIP ?= ibitzr Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
+PIP ?= Kibitzr psycopg2-binary Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
 REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 

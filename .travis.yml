@@ -33,6 +33,16 @@ jobs:
       env: PIP=Kibitzr
       script: make all-docker-native
 
+    # psycopg2-binary
+    - arch: arm64
+      python: "3.7"
+      env: PIP=psycopg2-binary
+      before_script: sudo apt install -qy libpq-dev
+    - arch: arm64
+      python: "3.8"
+      env: PIP=psycopg2-binary
+      before_script: sudo apt install -qy libpq-dev
+
     # ZeroNet
     - arch: amd64
       python: "3.8"
