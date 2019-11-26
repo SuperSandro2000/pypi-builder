@@ -16,17 +16,18 @@ ARCH ?= $(shell uname -m)
 CI ?=
 DIR ?= packages
 DIST ?= alpine buster # tested with alpine and buster
+PY_VERSION ?= 3
 PIP ?= Kibitzr psycopg2-binary Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
 REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 
 %.Dockerfile: Dockerfile.j2
-  (export arch=$(DOCKER_ARCH_$*) DIST=$(DIST) PIP="$(PIP)" && j2 $< -o $@)
+  (export ARCH=$(DOCKER_ARCH_$*) DIST=$(DIST) PY_VERSION=$(PY_VERSION) PIP="$(PIP)" && j2 $< -o $@)
 
 .PHONY: build-docker-%
 build-docker-%: %.Dockerfile
-  $(SUDO) docker build . -f $< -t pypi-builder-$*
-  $(SUDO) docker run -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder-$* make build PIP='$(PIP)'
+  $(SUDO) docker build . -f $< -t pypi-builder:$*
+  $(SUDO) docker run -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder:$* make build PIP='$(PIP)'
 
 .PHONY: build-docker
 build-docker: build-docker-amd64 build-docker-arm64 build-docker-armhf

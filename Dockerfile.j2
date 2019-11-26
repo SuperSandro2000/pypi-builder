@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}python:3-{% if DIST is defined %}{{DIST}}{% else %}buster{% endif %}
+FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defined %}{{PY_VERSION}}{% else %}3{% endif %}-{% if DIST is defined %}{{DIST}}{% else %}buster{% endif %}
 
 {%- if DIST == "alpine" %}
 # script and common build dependencies
