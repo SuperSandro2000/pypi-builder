@@ -1,37 +1,20 @@
 FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defined %}{{PY_VERSION}}{% else %}3{% endif %}-{% if DIST is defined %}{{DIST}}{% else %}buster{% endif %}
 
 {%- if DIST == "alpine" %}
-# script and common build dependencies
-RUN apk add --no-progress bash g++ make
+# script and very common build dependencies.
+# libffi-dev is needed for cryptography which in turn is needed for twine
+RUN apk add --no-progress bash g++ make \
+  libffi-dev openssl-dev
 
 {%- if "Kibitzr" in PIP %}
-{%- set crypt = 'True' %}
-{%- set ffi = 'True' %}
-
 # depencies needed by lxml
 RUN apk add --no-progress libxml2-dev libxslt-dev
 {%- endif %}
 
 {%- if "psycopg2-binary" in PIP %}
-{%- set ffi = 'True' %}
-
 RUN apk add --no-progress postgresql-dev
 {%- endif %}
 
-{%- if "ZeroNet" in PIP %}
-{%- set crypt = 'True' %}
-{%- set ffi = 'True' %}
-{%- endif %}
-
-{%- if crypt is defined %}
-# depencies needed by cryptography
-RUN apk add --no-progress openssl-dev
-{%- endif %}
-
-{%- if ffi is defined %}
-# depencies needed by cffi
-RUN apk add --no-progress libffi-dev
-{%- endif %}
 {%- endif %}
 
 RUN pip3 install twine wheel
