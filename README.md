@@ -1,6 +1,6 @@
 # PyPi builder
 
-This repo is used to build arm64 pypi wheels for https://pypi.supersandro.de/
+This repo is used to build pypi wheels for https://pypi.supersandro.de/
 
 ## Dockerimage
 
