@@ -2,9 +2,12 @@ FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defi
 
 {%- if DIST == "alpine" %}
 # script and very common build dependencies.
-# libffi-dev is needed for cryptography which in turn is needed for twine
-RUN apk add --no-progress bash g++ make \
+# git is needed when a git repo is referenced in a requirements.txt
+RUN apk add --no-progress bash g++ git make \
+# libffi-dev and openssl-dev is needed for cryptography which in turn is needed for twine
   libffi-dev openssl-dev
+
+RUN pip3 install twine wheel
 
 {%- if "Kibitzr" in PIP %}
 # depencies needed by lxml
@@ -15,9 +18,11 @@ RUN apk add --no-progress libxml2-dev libxslt-dev
 RUN apk add --no-progress postgresql-dev
 {%- endif %}
 
+{%- if "healthchecks" in PIP %}
+RUN apk add --no-progress postgresql-dev
 {%- endif %}
 
-RUN pip3 install twine wheel
+{%- endif %}
 
 COPY [ "Makefile", "/data/" ]
 
