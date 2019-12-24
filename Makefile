@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := $(if ${CI},all,native)
+.DEFAULT_GOAL := $(if ${CI},all,all-docker-native)
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
@@ -59,8 +59,8 @@ upload:
 	  $(if ${CI},sudo,) rm $$line; \
 	done
 
-.PHONY: native
-native: build-docker-$(NATIVE_ARCH_$(shell uname -m)) upload
+.PHONY: all-docker-native
+all-docker-native: build-docker-$(NATIVE_ARCH_$(shell uname -m)) upload
 
 
 .PHONY: all
