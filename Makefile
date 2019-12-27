@@ -4,12 +4,14 @@ SHELL := /bin/bash
 
 # `uname -m` does not use arm64 but instead aarch64. We need to translate this.
 NATIVE_ARCH_x86_64 := amd64
-NATIVE_ARCH_aarch64 ?= arm64
-NATIVE_ARCH_armv7l ?= armhf
+NATIVE_ARCH_aarch64 := arm64
+NATIVE_ARCH_arm64 := arm64
+NATIVE_ARCH_armhf := armhf
+NATIVE_ARCH_armv7l := armhf
 # Official Docker Images do not use arm64 but instead arm64v8. We need to translate this.
-DOCKER_ARCH_amd64 ?= amd64
-DOCKER_ARCH_arm64 ?= arm64v8
-DOCKER_ARCH_armhf ?= arm32v7
+DOCKER_ARCH_amd64 := amd64
+DOCKER_ARCH_arm64 := arm64v8
+DOCKER_ARCH_armhf := arm32v7
 
 ARCH ?= $(shell uname -m)
 CI ?=
