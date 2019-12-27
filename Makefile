@@ -62,8 +62,7 @@ all-docker-armhf: cross build-docker-armhf upload
 all-docker: build-docker upload
 
 .PHONY: all-docker-native
-all-docker-native: build-docker-$(NATIVE_ARCH_$(shell uname -m)) upload
-
+all-docker-native: build-docker-$(NATIVE_ARCH_$(ARCH)) upload
 
 .PHONY: all
 all: build upload
