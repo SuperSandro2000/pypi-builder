@@ -5,6 +5,7 @@ SHELL := /bin/bash
 # `uname -m` does not use arm64 but instead aarch64. We need to translate this.
 NATIVE_ARCH_x86_64 := amd64
 NATIVE_ARCH_aarch64 := arm64
+NATIVE_ARCH_amd64 := amd64
 NATIVE_ARCH_arm64 := arm64
 NATIVE_ARCH_armhf := armhf
 NATIVE_ARCH_armv7l := armhf
