@@ -50,5 +50,5 @@ jobs:
       env: PY_VERSION=3.8 PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
       script: make all-docker-native
     - arch: arm64
-      env: PY_VERSION=3.8 PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
+      env: PY_VERSION=3.7 PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
       script: make all-docker-native
