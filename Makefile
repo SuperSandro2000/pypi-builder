@@ -32,7 +32,7 @@ build:
 
 .PHONY: build-docker-%
 build-docker-%: %.Dockerfile
-	$(SUDO) docker build . -f $< -t pypi-builder:$*
+	$(SUDO) docker build . --pull -f $< -t pypi-builder:$*
 	$(SUDO) docker run -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder:$* make build PIP='$(PIP)'
 
 .PHONY: build-docker
