@@ -46,6 +46,7 @@ cross:
 upload:
 	@find packages/ ! -name *none-any* -type f -print0 | \
 	  while IFS= read -r -d '' line; do \
+            if [[ $$line =~ ".dev0-" ]]; then continue; fi; \
 	    twine upload --repository-url $(REPO) --skip-existing $$line; \
 	  $(if ${CI},sudo,) rm $$line; \
 	done
