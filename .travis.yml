@@ -33,6 +33,14 @@ jobs:
       env: PIP=Kibitzr
       script: make all-docker-native
 
+    # Gevent
+    - arch: amd64
+      env: PIP="--pre gevent"
+      script: make all-docker-native
+    - arch: arm64
+      env: PIP="--pre gevent"
+      script: make all-docker-native
+
     # psycopg2-binary
     - arch: arm64
       env: PIP=psycopg2-binary
