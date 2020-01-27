@@ -17,7 +17,7 @@ install:
   - sudo apt update -q
   - sudo apt install -qy python3-wheel
   # fix strange permission issues on travis ci arm64 nodes
-  - sudo chown travis:travis -R /home/travis/.cache/pip/wheels
+  - sudo chown travis:travis -R /home/travis/.cache/pip/wheels || true
   - pip3 install j2cli twine
 
 script:
