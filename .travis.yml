@@ -25,6 +25,14 @@ script:
 
 jobs:
   include:
+    # cryptography
+    - arch: amd64
+      env: PIP="--pre gevent"
+      script: make all-docker-native
+    - arch: arm64
+      env: PIP="--pre gevent"
+      script: make all-docker-native
+
     # Kibitzr Alpine
     - arch: amd64
       env: PIP=Kibitzr
@@ -39,6 +47,14 @@ jobs:
       script: make all-docker-native
     - arch: arm64
       env: PIP="--pre gevent"
+      script: make all-docker-native
+
+    # lxml
+    - arch: amd64
+      env: PIP="lxml"
+      script: make all-docker-native
+    - arch: arm64
+      env: PIP="lxml"
       script: make all-docker-native
 
     # psycopg2-binary

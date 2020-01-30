@@ -19,7 +19,7 @@ CI ?=
 DIR ?= packages
 DIST ?= alpine # tested with alpine and buster
 PY_VERSION ?= 3
-PIP ?= Kibitzr psycopg2-binary Red-DiscordBot -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
+PIP ?= cryptography Kibitzr gevent lxml psycopg2-binary -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
 REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups | grep -q docker; then echo "sudo"; fi)
 
