@@ -7,7 +7,7 @@ RUN apk add --no-progress bash g++ git make \
 # libffi-dev and openssl-dev is needed for cryptography which in turn is needed for twine
   libffi-dev openssl-dev
 
-RUN pip3 install twine wheel
+RUN pip3 install --prefer-binary twine wheel
 
 {%- if "Kibitzr" or "lxml" in PIP %}
 # depencies needed by lxml
