@@ -9,7 +9,7 @@ RUN apk add --no-progress bash g++ git make \
 
 RUN pip3 install twine wheel
 
-{%- if "Kibitzr" in PIP %}
+{%- if "Kibitzr" or "lxml" in PIP %}
 # depencies needed by lxml
 RUN apk add --no-progress libxml2-dev libxslt-dev
 {%- endif %}
