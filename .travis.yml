@@ -45,9 +45,6 @@ jobs:
     - arch: amd64
       env: PIP="--pre gevent"
       script: make all-docker-native
-    - arch: arm64
-      env: PIP="--pre gevent"
-      script: make all-docker-native
 
     # lxml
     - arch: amd64
