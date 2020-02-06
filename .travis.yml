@@ -27,10 +27,10 @@ jobs:
   include:
     # cryptography
     - arch: amd64
-      env: PIP="--pre gevent"
+      env: PIP="cryptography"
       script: make all-docker-native
     - arch: arm64
-      env: PIP="--pre gevent"
+      env: PIP="cryptography"
       script: make all-docker-native
 
     # Kibitzr Alpine
