@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := $(if ${CI},all,all-docker-native)
+.DEFAULT_GOAL := $(if ${CI},all,docker-native)
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
@@ -51,20 +51,20 @@ upload:
 	  $(if ${CI},sudo,) rm $$line; \
 	done
 
-.PHONY: all-docker-amd64
-all-docker-amd64: build-docker-amd64 upload
+.PHONY: docker-amd64
+docker-amd64: build-docker-amd64 upload
 
-.PHONY: all-docker-arm64
-all-docker-arm64: build-docker-arm64 upload
+.PHONY: docker-arm64
+docker-arm64: build-docker-arm64 upload
 
-.PHONY: all-docker-armhf
-all-docker-armhf: cross build-docker-armhf upload
+.PHONY: docker-armhf
+docker-armhf: cross build-docker-armhf upload
 
-.PHONY: all-docker
-all-docker: build-docker upload
+.PHONY: docker
+docker: build-docker upload
 
-.PHONY: all-docker-native
-all-docker-native: build-docker-$(NATIVE_ARCH_$(ARCH)) upload
+.PHONY: docker-native
+docker-native: build-docker-$(NATIVE_ARCH_$(ARCH)) upload
 
 .PHONY: all
 all: build upload
