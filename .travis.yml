@@ -28,31 +28,31 @@ jobs:
     # cryptography
     - arch: amd64
       env: PIP="cryptography"
-      script: make all-docker-native
+      script: make docker-native
     - arch: arm64
       env: PIP="cryptography"
-      script: make all-docker-native
+      script: make docker-native
 
     # Kibitzr Alpine
     - arch: amd64
       env: PIP=Kibitzr
-      script: make all-docker-native
+      script: make docker-native
     - arch: arm64
       env: PIP=Kibitzr
-      script: make all-docker-native
+      script: make docker-native
 
     # Gevent
     - arch: amd64
       env: PIP="--pre gevent"
-      script: make all-docker-native
+      script: make docker-native
 
     # lxml
     - arch: amd64
       env: PIP="lxml"
-      script: make all-docker-native
+      script: make docker-native
     - arch: arm64
       env: PIP="lxml"
-      script: make all-docker-native
+      script: make docker-native
 
     # psycopg2-binary
     - arch: arm64
@@ -70,7 +70,7 @@ jobs:
     # ZeroNet Alpine
     - arch: amd64
       env: PY_VERSION=3.8 PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
-      script: make all-docker-native
+      script: make docker-native
     - arch: arm64
       env: PY_VERSION=3.7 PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
-      script: make all-docker-native
+      script: make docker-native
