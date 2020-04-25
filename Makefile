@@ -30,13 +30,13 @@ SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --pres
 build:
 	pip3 wheel --wheel-dir $(DIR)/ $(PIP)
 
-.PHONY: build-docker-%
-build-docker-%: %.Dockerfile
+.PHONY: docker-build-%
+docker-build-%: %.Dockerfile
 	$(SUDO) docker build . --pull -f $< -t pypi-builder:$*
 	$(SUDO) docker run --rm -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder:$* make build PIP='$(PIP)'
 
-.PHONY: build-docker
-build-docker: build-docker-amd64 build-docker-arm64 build-docker-armhf
+.PHONY: docker-build
+docker-build: docker-build-amd64 docker-build-arm64 docker-build-armhf
 
 .PHONY: cross
 cross:
@@ -48,23 +48,22 @@ upload:
 	  while IFS= read -r -d '' line; do \
             if [[ $$line =~ ".dev0-" ]]; then continue; fi; \
 	    twine upload --repository-url $(REPO) --skip-existing $$line; \
-	  $(if ${CI},sudo,) rm $$line; \
 	done
 
 .PHONY: docker-amd64
-docker-amd64: build-docker-amd64 upload
+docker-amd64: docker-build-amd64 upload
 
 .PHONY: docker-arm64
-docker-arm64: build-docker-arm64 upload
+docker-arm64: cross docker-build-arm64 upload
 
 .PHONY: docker-armhf
-docker-armhf: cross build-docker-armhf upload
+docker-armhf: cross docker-build-armhf upload
 
 .PHONY: docker
-docker: build-docker upload
+docker: docker-build upload
 
 .PHONY: docker-native
-docker-native: build-docker-$(NATIVE_ARCH_$(ARCH)) upload
+docker-native: docker-build-$(NATIVE_ARCH_$(ARCH)) upload
 
 .PHONY: all
 all: build upload
