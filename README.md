@@ -6,4 +6,4 @@ This repo is used to build pypi wheels for https://pypi.supersandro.de/
 
 To build in the Docker Image run ``sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes`` before.
 
-*NOTE* Building on an emulator is quite slow and not recommended. Real hardware, even a Raspberry Pi 3b, is way faster!
+*NOTE:* Building while running in an emulator is quite slow and therefore not recommended. Real hardware, even a Raspberry Pi 3b, is faster!
