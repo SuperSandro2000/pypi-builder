@@ -1,9 +1,13 @@
-FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defined %}{{PY_VERSION}}{% else %}3{% endif %}-{% if DIST is defined %}{{DIST}}{% else %}buster{% endif %}
+{% if DIST is not defined or DIST == "buster" %}
+FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defined %}{{PY_VERSION}}{% else %}3{% endif %}-buster
+{% endif %}
 
 {%- if DIST == "alpine" %}
+FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}alpine:3.11
+
 # script and very common build dependencies.
 # git is needed when a git repo is referenced in a requirements.txt
-RUN apk add --no-progress bash g++ git make \
+RUN apk add --no-progress bash g++ git make python3-dev py3-pip \
 # libffi-dev and openssl-dev is needed for cryptography which in turn is needed for twine
   libffi-dev openssl-dev
 
