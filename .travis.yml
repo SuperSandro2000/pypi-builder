@@ -59,14 +59,6 @@ jobs:
       env: PIP=psycopg2-binary
       before_script: sudo apt install -qy libpq-dev
 
-    # ZeroNet
-    - arch: amd64
-      env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
-      before_script: sudo apt install -qy libffi-dev
-    - arch: arm64
-      env: PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
-      before_script: sudo apt install -qy libffi-dev pkg-config
-
     # ZeroNet Alpine
     - arch: amd64
       env: DIST=alpine PIP="-r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt"
