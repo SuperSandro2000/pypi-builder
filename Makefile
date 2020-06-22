@@ -70,4 +70,5 @@ all: build upload
 
 .PHONY: clean
 clean:
+	rm -f *.Dockerfile
 	$(if ${CI},sudo,) rm -f packages/*
