@@ -43,7 +43,7 @@ jobs:
 
     # Gevent
     - arch: amd64
-      env: PIP="--pre gevent"
+      env: PIP="gevent"
       script: make docker-native
 
     # lxml
