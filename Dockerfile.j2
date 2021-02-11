@@ -3,13 +3,13 @@ FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defi
 {% endif %}
 
 {%- if DIST == "alpine" %}
-FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}alpine:3.12
+FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}alpine:3.13
 
 # script and very common build dependencies.
 # git is needed when a git repo is referenced in a requirements.txt
 RUN apk add --no-progress bash g++ git make python3-dev py3-pip \
-# libffi-dev and openssl-dev is needed for cryptography which in turn is needed for twine
-  libffi-dev openssl-dev
+# cargo, libffi-dev, openssl-dev and rust is needed for cryptography which in turn is needed for twine
+  cargo libffi-dev openssl-dev rust
 
 RUN pip3 install --prefer-binary twine wheel
 
