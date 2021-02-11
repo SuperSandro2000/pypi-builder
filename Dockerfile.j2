@@ -18,6 +18,11 @@ RUN pip3 install --prefer-binary twine wheel
 RUN apk add --no-progress libxml2-dev libxslt-dev
 {%- endif %}
 
+{%- if "coincurve" in PIP %}
+# depencies needed by lxml
+RUN apk add --no-progress autoconf automake libtool
+{%- endif %}
+
 {%- if "psycopg2-binary" in PIP %}
 RUN apk add --no-progress postgresql-dev
 {%- endif %}
