@@ -33,14 +33,14 @@ build:
 .PHONY: docker-build-%
 docker-build-%: %.Dockerfile
 	$(SUDO) docker build . --pull -f $< -t pypi-builder:$*
-	$(SUDO) docker run --rm -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder:$* make build PIP='$(PIP)'
+	$(SUDO) docker run --init --rm -i$(if ${CI},,t) -v $$PWD/packages:/data/packages pypi-builder:$* make build PIP='$(PIP)'
 
 .PHONY: docker-build
 docker-build: docker-build-amd64 docker-build-arm64 docker-build-armhf
 
 .PHONY: cross
 cross:
-	$(SUDO) docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+	$(SUDO) docker run --init --privileged --rm multiarch/qemu-user-static --reset -p yes
 
 .PHONY: upload
 upload:
