@@ -21,7 +21,7 @@ DIST ?= buster # tested with alpine and buster
 PY_VERSION ?= 3.8
 PIP ?= cryptography Kibitzr gevent lxml psycopg2-binary Twisted -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
 REPO ?= https://pypi.supersandro.de/
-SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,COMPOSE_DOCKER_CLI_BUILD,HOME,PWD; fi)
+SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,DOCKER_HOST,PWD; fi)
 
 %.Dockerfile: Dockerfile.j2
 	(export ARCH=$(DOCKER_ARCH_$*) DIST=$(DIST) PY_VERSION=$(PY_VERSION) PIP="$(PIP)" && j2 $< -o $@)
