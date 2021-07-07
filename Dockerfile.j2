@@ -3,7 +3,7 @@ FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defi
 {% endif %}
 
 {%- if DIST == "alpine" %}
-FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}alpine:3.13
+FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}alpine:3.14
 
 # script and very common build dependencies.
 # git is needed when a git repo is referenced in a requirements.txt
