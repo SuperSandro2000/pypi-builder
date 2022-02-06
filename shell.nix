@@ -1,5 +1,6 @@
 with (import <nixpkgs> { });
-mkShell {
+
+mkShellNoCC {
   buildInputs = with python3Packages; [
     twine
   ];
