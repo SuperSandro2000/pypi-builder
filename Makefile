@@ -20,7 +20,7 @@ DIR ?= packages
 DIST ?= buster # tested with alpine and buster
 ALPINE_VERSION ?= 3.15
 PY_VERSION ?= 3.9
-PIP ?= cryptography Kibitzr gevent lxml psycopg2-binary Red-DiscordBot Twisted -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
+# PIP ?= cryptography Kibitzr gevent lxml psycopg2-binary Red-DiscordBot Twisted -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt -r https://raw.githubusercontent.com/healthchecks/healthchecks/master/requirements.txt
 REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,DOCKER_HOST,PWD; fi)
 
