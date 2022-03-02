@@ -5,21 +5,26 @@ FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defi
 {%- if DIST == "alpine" %}
 FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}alpine:{{ALPINE_VERSION}}
 
-# script and very common build dependencies.
-# git is needed when a git repo is referenced in a requirements.txt
-RUN apk add --no-progress bash g++ git make python3-dev py3-pip \
-# cargo, libffi-dev, openssl-dev and rust is needed for cryptography which in turn is needed for twine
-  cargo libffi-dev openssl-dev rust
+# for scripts and very common, not to big build dependencies.
+RUN apk add --no-progress bash g++ git make python3-dev py3-pip py3-wheel py3-twine
 
-RUN pip3 install --prefer-binary twine wheel
+RUN pip3 install --upgrade pip
+
+# ordered by popularity to try cache things
+
+{%- if "cryptography" or "gevent" in PIP %}
+RUN apk add --no-progress libffi-dev
+{%- endif %}
+
+{%- if "cryptography" in PIP %}
+RUN apk add --no-progress cargo openssl-dev rust
+{%- endif %}
 
 {%- if "Kibitzr" or "lxml" in PIP %}
-# depencies needed by lxml
 RUN apk add --no-progress libxml2-dev libxslt-dev
 {%- endif %}
 
 {%- if "coincurve" in PIP %}
-# depencies needed by lxml
 RUN apk add --no-progress autoconf automake libtool
 {%- endif %}
 
