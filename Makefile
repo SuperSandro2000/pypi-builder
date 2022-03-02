@@ -18,13 +18,14 @@ ARCH ?= $(shell uname -m)
 CI ?=
 DIR ?= packages
 DIST ?= buster # tested with alpine and buster
+ALPINE_VERSION ?= 3.15
 PY_VERSION ?= 3.9
 PIP ?= cryptography Kibitzr gevent lxml psycopg2-binary Red-DiscordBot Twisted -r https://github.com/HelloZeroNet/ZeroNet/raw/py3/requirements.txt
 REPO ?= https://pypi.supersandro.de/
 SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,DOCKER_HOST,PWD; fi)
 
 %.Dockerfile: Dockerfile.j2
-	(export ARCH=$(DOCKER_ARCH_$*) DIST=$(DIST) PY_VERSION=$(PY_VERSION) PIP="$(PIP)" && j2 $< -o $@)
+	(export ARCH=$(DOCKER_ARCH_$*) DIST=$(DIST) ALPINE_VERSION=$(ALPINE_VERSION) PY_VERSION=$(PY_VERSION) PIP="$(PIP)" && j2 $< -o $@)
 
 .PHONY: build
 build:
