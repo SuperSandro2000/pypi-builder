@@ -4,7 +4,15 @@ FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}python:{% if PY_VERSION is defi
 
 {%- if DIST == "alpine" %}
 FROM {% if ARCH is defined %}{{ARCH}}/{% endif %}alpine:{{ALPINE_VERSION}}
+{% endif %}
 
+
+{% if DIST == "buster" %}
+RUN apt update \
+  && apt install -y twine
+{% endif %}
+
+{%- if DIST == "alpine" %}
 # for scripts and very common, not to big build dependencies.
 RUN apk add --no-progress bash g++ git make python3-dev py3-pip py3-wheel py3-twine
 
